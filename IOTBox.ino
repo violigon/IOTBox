@@ -7,7 +7,7 @@ SoftwareSerial AT(RX,TX);
 
 // TODO: change user config
 String ssid     = "Vini"; //Wifi SSID
-String password = "testeteste"; //Wifi Password
+String password = "TESTE"; //Wifi Password
 String apiKeyIn = "v3kGXejHcPu5uYL6F22DubNzQYoLbzkY"; // API Key
 const unsigned int writeInterval = 25000; // write interval (in ms)
 
@@ -22,9 +22,9 @@ void setup() {
   Serial.begin(9600);
   // open serial 
   Serial.println("*****************************************************");
-  Serial.println("********** Program Start : Connect Arduino WiFi to AskSensors");
+  Serial.println("********** Programa iniciado : Conectando ao Wifi");
   AT.begin(115200);
-  Serial.println("Initiate AT commands with ESP8266 ");
+  Serial.println("Iniciando comandos AT com o ESP8266 ");
   sendATcmd("AT",5,"OK");
   sendATcmd("AT+CWMODE=1",5,"OK");
   Serial.print("Connecting to WiFi:");
@@ -40,18 +40,18 @@ void loop() {
   url += "?module1=";
   url += random(10, 100);
   Serial.println("*****************************************************");
-  Serial.println("********** Open TCP connection ");
+  Serial.println("********** Abrindo conexão TCP ");
   sendATcmd("AT+CIPMUX=1", 10, "OK");
   sendATcmd("AT+CIPSTART=0, \"TCP\",\"" + host +"\"," + port, 20, "OK");
   sendATcmd("AT+CIPSEND=0," + String(url.length() + 4), 10, ">");
   
-  Serial.print("********** requesting URL: ");
+  Serial.print("********** Requisitando  URL: ");
   Serial.println(url);
   AT.println(url);
   delay(2000);
   sendATcmd("AT+CIPCLOSE=0", 10, "OK");
   
-  Serial.println("********** Close TCP Connection ");
+  Serial.println("********** Fechando conexão TCP ");
   Serial.println("*****************************************************");
   
   delay(writeInterval);   // delay
